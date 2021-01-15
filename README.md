@@ -39,3 +39,7 @@ $ yarn build
 $ yarn global add serve
 $ serve -s build
 ```
+  
+   
+<img width="250" alt="Screen Shot 2021-01-16 at 3 20 45 AM" src="https://user-images.githubusercontent.com/41249563/104768134-814b7a00-57b0-11eb-88eb-635680dfab58.png">
+
