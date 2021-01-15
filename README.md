@@ -6,9 +6,11 @@ A graphql relay client example application, created from my experience
 
 You should use the structure below
 
+```
 root
 ├── server
 └── client
+```
 
 ## Server Project
 
