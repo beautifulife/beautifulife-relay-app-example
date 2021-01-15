@@ -1,32 +1,62 @@
 {
-  "name": "client2",
-  "version": "0.1.0",
-  "private": true,
+  "name": "beautifulife-relay-app-example",
+  "version": "1.0.0",
+  "license": "MIT",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
+    "@emotion/babel-preset-css-prop": "^11.0.0",
+    "@emotion/react": "^11.1.4",
+    "@emotion/styled": "^11.0.0",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.3",
+    "@testing-library/user-event": "^12.6.0",
+    "@types/graphql": "^14.5.0",
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.20",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-relay": "^7.0.17",
+    "@types/relay-runtime": "^10.1.7",
+    "address": "^1.1.2",
+    "babel-plugin-relay": "^10.1.2",
+    "customize-cra": "^1.0.0",
+    "graphql": "^15.4.0",
+    "karrotframe": "^0.10.4",
+    "prettier": "^2.2.1",
     "react": "^17.0.1",
+    "react-app-rewired": "^2.1.8",
     "react-dom": "^17.0.1",
+    "react-relay-network-modern": "^6.0.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4"
+    "react-spinners": "^0.10.4",
+    "react-toastify": "^6.2.0",
+    "relay-compiler": "^10.1.2",
+    "relay-compiler-language-typescript": "^13.0.2",
+    "relay-config": "^10.1.2",
+    "relay-hooks": "^4.0.0-rc.3",
+    "relay-runtime": "^10.1.2",
+    "typescript": "^4.1.3",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-app-rewired build",
+    "get-schema": "cp ../server/schema.graphql ./src/graphql/schema.graphql",
+    "relay": "yarn get-schema & relay-compiler --src ./src --schema ./src/graphql/schema.graphql --language typescript --extensions ts tsx --artifactDirectory ./src/__generated__",
+    "start": "react-app-rewired start",
+    "test": "react-app-rewired test",
+    "lint": "eslint \"src/**/*.{tsx,ts,js,jsx}\""
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "browserslist": {
     "production": [

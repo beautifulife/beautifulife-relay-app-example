@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'react-toastify/dist/ReactToastify.css'
 
-function App() {
+import { useEffect, useState } from 'react'
+import { ToastContainer } from 'react-toastify'
+import { RelayEnvironmentProvider } from 'relay-hooks'
+
+import { createEnvironment } from './graphql'
+import { RelayQueryCacheContext } from './packages/relayQueryCache'
+import { relayQueryCache } from './relayQueryCache'
+import Router from './Router'
+
+const App: React.FC = () => {
+  const [environment] = useState(createEnvironment())
+
+  useEffect(() => {
+    relayQueryCache.setEnvironment(environment)
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <RelayEnvironmentProvider environment={environment}>
+      <RelayQueryCacheContext.Provider value={relayQueryCache}>
+        <Router />
+        <ToastContainer
+          position="bottom-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          pauseOnHover
+        />
+      </RelayQueryCacheContext.Provider>
+    </RelayEnvironmentProvider>
+  )
 }
 
-export default App;
+export default App
