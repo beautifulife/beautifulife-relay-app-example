@@ -14,7 +14,7 @@ root
 
 ## Server Project
 
-This project needs `graphql-client-example-server` as directory name server at client
+This project needs `graphql-client-example-server`
 
 [graphql-client-example-server](https://github.com/beautifulife/graphql-client-example-server)
 
