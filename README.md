@@ -2,6 +2,8 @@
 
 A graphql relay client example application, created from my experience
 
+This project was made for the [presentation](https://www2.slideshare.net/DavidKim203/head-first-relay-graphql)
+
 ## Directory structure
 
 You should use the structure below
