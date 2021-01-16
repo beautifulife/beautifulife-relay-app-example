@@ -4,7 +4,6 @@ import { graphql, useQuery } from 'relay-hooks'
 
 import { css } from '@emotion/react'
 
-// # POINT: cache
 // import { useRetainQuery } from '../packages/relayQueryCache'
 import { TicketPageQuery } from '../__generated__/TicketPageQuery.graphql'
 import Loader from '../components/Loader'

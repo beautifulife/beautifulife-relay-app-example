@@ -8,7 +8,7 @@ export type MainPageQueryVariables = {
     first?: number | null;
 };
 export type MainPageQueryResponse = {
-    readonly " $fragmentRefs": FragmentRefs<"TodoListPaginated_query" | "TicketList_query">;
+    readonly " $fragmentRefs": FragmentRefs<"TodoList_query" | "TodoListPaginated_query" | "TicketList_query">;
 };
 export type MainPageQuery = {
     readonly response: MainPageQueryResponse;
@@ -21,6 +21,7 @@ export type MainPageQuery = {
 query MainPageQuery(
   $first: Int
 ) {
+  ...TodoList_query
   ...TodoListPaginated_query_3ASum4
   ...TicketList_query
 }
@@ -60,6 +61,15 @@ fragment TodoListPaginated_query_3ASum4 on Query {
   }
 }
 
+fragment TodoList_query on Query {
+  todos(limit: 50, offset: 0) {
+    results {
+      id
+      ...Todo_todo
+    }
+  }
+}
+
 fragment Todo_todo on TodoItem {
   id
   completed
@@ -82,11 +92,37 @@ v1 = [
     "variableName": "first"
   }
 ],
-v2 = {
+v2 = [
+  {
+    "kind": "Literal",
+    "name": "limit",
+    "value": 50
+  },
+  {
+    "kind": "Literal",
+    "name": "offset",
+    "value": 0
+  }
+],
+v3 = {
   "alias": null,
   "args": null,
   "kind": "ScalarField",
   "name": "id",
+  "storageKey": null
+},
+v4 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "completed",
+  "storageKey": null
+},
+v5 = {
+  "alias": null,
+  "args": null,
+  "kind": "ScalarField",
+  "name": "text",
   "storageKey": null
 };
 return {
@@ -96,6 +132,11 @@ return {
     "metadata": null,
     "name": "MainPageQuery",
     "selections": [
+      {
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "TodoList_query"
+      },
       {
         "args": (v1/*: any*/),
         "kind": "FragmentSpread",
@@ -116,6 +157,31 @@ return {
     "kind": "Operation",
     "name": "MainPageQuery",
     "selections": [
+      {
+        "alias": null,
+        "args": (v2/*: any*/),
+        "concreteType": "TodosPaginated",
+        "kind": "LinkedField",
+        "name": "todos",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "TodoItem",
+            "kind": "LinkedField",
+            "name": "results",
+            "plural": true,
+            "selections": [
+              (v3/*: any*/),
+              (v4/*: any*/),
+              (v5/*: any*/)
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": "todos(limit:50,offset:0)"
+      },
       {
         "alias": null,
         "args": (v1/*: any*/),
@@ -140,21 +206,9 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v2/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "completed",
-                    "storageKey": null
-                  },
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "text",
-                    "storageKey": null
-                  },
+                  (v3/*: any*/),
+                  (v4/*: any*/),
+                  (v5/*: any*/),
                   {
                     "alias": null,
                     "args": null,
@@ -228,18 +282,7 @@ return {
       },
       {
         "alias": null,
-        "args": [
-          {
-            "kind": "Literal",
-            "name": "limit",
-            "value": 50
-          },
-          {
-            "kind": "Literal",
-            "name": "offset",
-            "value": 0
-          }
-        ],
+        "args": (v2/*: any*/),
         "concreteType": "TicketsPaginated",
         "kind": "LinkedField",
         "name": "tickets",
@@ -253,7 +296,7 @@ return {
             "name": "results",
             "plural": true,
             "selections": [
-              (v2/*: any*/),
+              (v3/*: any*/),
               {
                 "alias": null,
                 "args": null,
@@ -291,14 +334,14 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c302a71a3f21bd2cdb0e105fba9a6f42",
+    "cacheID": "73646ab80774647b9b95e68c0f539f47",
     "id": null,
     "metadata": {},
     "name": "MainPageQuery",
     "operationKind": "query",
-    "text": "query MainPageQuery(\n  $first: Int\n) {\n  ...TodoListPaginated_query_3ASum4\n  ...TicketList_query\n}\n\nfragment TicketList_query on Query {\n  tickets(limit: 50, offset: 0) {\n    results {\n      id\n      ...Ticket_ticket\n    }\n  }\n}\n\nfragment Ticket_ticket on Ticket {\n  status\n  subject\n  lastUpdated\n  trackingId\n}\n\nfragment TodoListPaginated_query_3ASum4 on Query {\n  todosConnection(first: $first) {\n    edges {\n      node {\n        id\n        ...Todo_todo\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment Todo_todo on TodoItem {\n  id\n  completed\n  text\n}\n"
+    "text": "query MainPageQuery(\n  $first: Int\n) {\n  ...TodoList_query\n  ...TodoListPaginated_query_3ASum4\n  ...TicketList_query\n}\n\nfragment TicketList_query on Query {\n  tickets(limit: 50, offset: 0) {\n    results {\n      id\n      ...Ticket_ticket\n    }\n  }\n}\n\nfragment Ticket_ticket on Ticket {\n  status\n  subject\n  lastUpdated\n  trackingId\n}\n\nfragment TodoListPaginated_query_3ASum4 on Query {\n  todosConnection(first: $first) {\n    edges {\n      node {\n        id\n        ...Todo_todo\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n      hasPreviousPage\n      startCursor\n    }\n  }\n}\n\nfragment TodoList_query on Query {\n  todos(limit: 50, offset: 0) {\n    results {\n      id\n      ...Todo_todo\n    }\n  }\n}\n\nfragment Todo_todo on TodoItem {\n  id\n  completed\n  text\n}\n"
   }
 };
 })();
-(node as any).hash = 'bd50f454f6977c2ff78b453afe2fc154';
+(node as any).hash = 'ca61a8dccca36153dd95c1a38e96768f';
 export default node;

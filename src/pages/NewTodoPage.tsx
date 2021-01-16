@@ -39,6 +39,7 @@ const NewTodoPage: React.FC<ScreenComponentProps> = ({ isRoot }) => {
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault()
 
+    // POINT: 5. Updater Add
     mutateAddTodo({
       variables: { input: { text: inputValue } },
       configs: [

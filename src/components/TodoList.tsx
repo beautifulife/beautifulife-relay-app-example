@@ -18,7 +18,7 @@ const TodoList: React.FC<Props> = (props) => {
       @argumentDefinitions(limit: { type: "Int", defaultValue: 50 }, offset: { type: "Int", defaultValue: 0 }) {
         todos(limit: $limit, offset: $offset) {
           results {
-            id # POINT: data masking
+            id # POINT: 3. data masking
             ...Todo_todo # @relay(mask: false)
           }
         }

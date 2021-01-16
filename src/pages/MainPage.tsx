@@ -11,16 +11,18 @@ import daangn from '../assets/daangn.png'
 import Loader from '../components/Loader'
 import Navigation from '../components/Navigation'
 import TicketList from '../components/TicketList'
-import TodoListPaginated from '../components/TodoListPaginated'
+// import TodoListPaginated from '../components/TodoListPaginated'
+import TodoList from '../components/TodoList'
 
 const MainPage: React.FC<ScreenComponentProps> = () => {
   const { data, isLoading } = useQuery<MainPageQuery>(
     graphql`
       query MainPageQuery($first: Int) {
-        # POINT: pagination
+        ...TodoList_query
+
         ...TodoListPaginated_query @arguments(first: $first)
 
-        # POINT: relay cache
+        # POINT: 6. cache
         ...TicketList_query
       }
     `,
@@ -62,9 +64,12 @@ const MainPage: React.FC<ScreenComponentProps> = () => {
         isHome
       />
 
-      {/* # POINT: Fragment */}
       <h1>Todo List (Chapter 1)</h1>
-      {data && <TodoListPaginated query={data} />}
+      {/* POINT: 2. Fragment */}
+      {data && <TodoList query={data} />}
+
+      {/* POINT: 4. pagination */}
+      {/* {data && <TodoListPaginated query={data} />} */}
 
       <h1>Ticket List (Chapter 2)</h1>
       {data && <TicketList query={data} />}

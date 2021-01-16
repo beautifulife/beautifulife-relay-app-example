@@ -20,6 +20,7 @@ const TodoPage: React.FC<ScreenComponentProps> = ({ isRoot }) => {
   const param = useParams<{ id: string }>()
   const { id } = useMemo(() => param ?? { id: '' }, [])
 
+  // POINT: 1. Query, Mutaton
   const { data, isLoading } = useQuery<TodoPageQuery>(
     graphql`
       query TodoPageQuery($id: ID!) {
@@ -34,8 +35,10 @@ const TodoPage: React.FC<ScreenComponentProps> = ({ isRoot }) => {
         }
       }
     `,
-    { id }
+    { id },
+    { fetchPolicy: 'store-and-network' }
   )
+  // POINT: 7. Fetch-Policy
 
   const [mutateDeleteTodo, { loading: deleteLoading }] = useMutation<TodoPageDeleteTodoMutation>(graphql`
     mutation TodoPageDeleteTodoMutation($input: DeleteTodoItemInput!) {
@@ -56,6 +59,7 @@ const TodoPage: React.FC<ScreenComponentProps> = ({ isRoot }) => {
     }
   `)
 
+  // POINT: 5. Updater Delete
   const handleDeleteClick = () => {
     mutateDeleteTodo({
       variables: {
@@ -87,6 +91,7 @@ const TodoPage: React.FC<ScreenComponentProps> = ({ isRoot }) => {
     })
   }
 
+  // POINT: 5. Optimistic Update
   const handleCompleteClcik = () => {
     const { id, text, completed } = data!.node!
     mutateUpdateTodo({
